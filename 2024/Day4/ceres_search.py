@@ -55,11 +55,49 @@ def check_forward_letters(i,j):
         push_dir('r d',i,j)
     return direction,position
 
+def check_forward_slash(i,j):
+    if((letter(i-1,j-1)=="S") and (letter(i,j)=="A") and (letter(i+1,j+1)=="M")):
+        return True
+    if((letter(i-1,j-1)=="M") and (letter(i,j)=="A") and (letter(i+1,j+1)=="S")):
+        return True
+    return False
 
-total = 0
-for i in range(len(letters)):
-    for j in range(len(letters[i][0])):
-        direction,position = check_forward_letters(i,j)
-        if(len(direction)):
-            total+=len(direction)
-print(total)
+def check_backward_slash(i,j):
+    if((letter(i-1,j+1)=="S") and (letter(i,j)=="A") and (letter(i+1,j-1)=="M")):
+        return True
+    if((letter(i-1,j+1)=="M") and (letter(i,j)=="A") and (letter(i+1,j-1)=="S")):
+        return True
+    return False
+
+
+
+
+def check_X(i,j):
+    position = []
+    def  push_dir(i,j):
+        position.append([i,j])
+    if(check_forward_slash(i,j) and check_backward_slash(i,j) ):
+        push_dir(i,j)
+
+    return position,
+
+
+def run_part_one():
+    total = 0
+    for i in range(len(letters)):
+        for j in range(len(letters[i][0])):
+            direction,position = check_forward_letters(i,j)
+            if(len(direction)):
+                total+=len(direction)
+    print(total)
+
+def run_part_two():
+     total = 0
+     for i in range(len(letters)):
+        for j in range(len(letters[i][0])):
+            position = check_X(i,j)
+            if(len(position) and position[0]):
+                print(position)
+                total+=len(position)
+     print(total)
+run_part_two()
